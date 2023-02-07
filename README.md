@@ -1,9 +1,9 @@
-# NoRoad: Aplicación de mensajería anónima y segura
+# NoRoad: Anonymous and secure messaging application
 
-NoRoad es una aplicación web de mensajería instantánea diseñada para proporcionar una experiencia de comunicación segura y anónima a sus usuarios. La aplicación fue desarrollada utilizando React en el front-end y Node.js en el back-end, garantizando una alta velocidad y rendimiento en la experiencia del usuario.
+NoRoad is an instant messaging web application designed to provide a secure and anonymous communication experience to its users. The application was developed using React on the front-end and Node.js on the back-end, ensuring high speed and performance in the user experience.
 
-En NoRoad, los usuarios pueden registrarse sin proporcionar información personal. Al registrarse, se generan dos claves, una pública y una privada. La clave pública se almacena en la base de datos de MongoDB y la clave privada es responsabilidad del usuario mantenerla en un lugar seguro.
+In NoRoad, users can register without providing personal information. When registering, two keys are generated, a public and a private key. The public key is stored in the MongoDB database and the private key is the responsibility of the user to keep in a secure location.
 
-La aplicación permite a los usuarios crear chats con otros usuarios conocidos por su ID. Una vez creado el chat, todos los mensajes enviados se encriptan utilizando la clave pública del destinatario. Solo el destinatario será capaz de desencriptar los mensajes recibidos con su clave privada.
+The application allows users to create chats with other users known by their ID. Once the chat is created, all messages sent are encrypted using the recipient's public key. Only the recipient will be able to decrypt the messages received with their private key.
 
-En resumen, NoRoad es una aplicación web segura y anónima diseñada para proporcionar a sus usuarios una experiencia de mensajería instantánea sin preocupaciones sobre la privacidad de su información. Únete hoy mismo y experimenta la comunicación segura y anónima que ofrece NoRoad.
+In summary, NoRoad is a secure and anonymous web application designed to provide its users with an instant messaging experience without concerns about the privacy of their information. Join today and experience the secure and anonymous communication that NoRoad offers.
