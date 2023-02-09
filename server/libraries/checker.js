@@ -16,7 +16,7 @@ const checkCreateUser = (body) => {
 };
 
 const checkUpdateUser = (body) => {
-    const result = { result: false };
+    let result = { result: false };
 
     if (body.alias && body.alias.trim() !== "") {
         result = { result: true, alias: body.alias };
