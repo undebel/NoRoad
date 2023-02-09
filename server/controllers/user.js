@@ -75,7 +75,22 @@ const updateUser = async (req, res) => {
     const idUser = req.params.id;
     const params = req.body;
 
-    // TODO: Check data before update
+    const r = checker.checkUpdateUser(params);
+
+    if (!r.result) {
+        res.status(400).send({ msg: "Have not specified any value to update" });
+        return;
+    }
+
+    let newUser = {};
+
+    if (r.alias) {
+        newUser = { alias: r.alias };
+    }
+    if (r.password) {
+        newUser = { ...newUser, password: r.password };
+    }
+
     try {
         const user = await User.findByIdAndUpdate(idUser, params);
 
