@@ -11,8 +11,8 @@ services:
     volumes:
       - ./:/app
     environment:
-      - MONGO_DB: db
-      - PORT: ${PORT}
+      - "MONGO_DB=db"
+      - "PORT=$PORT"
   db:
     image: mongo
     volumes:
