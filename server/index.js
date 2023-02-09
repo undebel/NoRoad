@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 const app = require("./app");
-const port = 3001;
-const urlMongoDB = "mongodb://localhost:27017/noroad";
+
+const port = process.env.PORT || 3001;
+
+const hostMongoDB = process.env.MONGO_DB || "localhost";
+const urlMongoDB = `mongodb://${hostMongoDB}:27017/noroad`;
 
 mongoose.set("strictQuery", false);
 

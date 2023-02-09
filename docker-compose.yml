@@ -3,14 +3,17 @@ services:
   app:
     image: node:19
     ports:
-      - "1337:3001"
+      - "${PORT}:${PORT}"
     links:
       - db
     command: sh -c "npm install && cd client && npm install && npm run build && cd .. && npm start"
     working_dir: /app
     volumes:
       - ./:/app
+    environment:
+      - MONGO_DB: db
+      - PORT: ${PORT}
   db:
     image: mongo
     volumes:
-      - ./data/db:/data/db
+      - ./data/db:/data/db # Creating persistence of database data
