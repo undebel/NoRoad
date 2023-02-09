@@ -1,0 +1,21 @@
+{
+  "name": "noroad",
+  "version": "1.0.0",
+  "description": "NoRoad is an instant messaging web application designed to provide a secure and anonymous communication experience to its users. The application was developed using React on the front-end and Node.js on the back-end, ensuring high speed and performance in the user experience.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.9.1",
+    "node-rsa": "^1.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
