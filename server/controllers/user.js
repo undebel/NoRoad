@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const rsa = require("../libraries/rsa");
+const checker = require("../libraries/checker");
 
 const createUser = async (req, res) => {
     const { publicKey, privateKey } = rsa.generateRSAKeys();
@@ -7,7 +8,13 @@ const createUser = async (req, res) => {
     const user = new User();
     const params = req.body;
 
-    // TODO: Check data before save
+    const r = checker.checkCreateUser(params);
+
+    if (!r.result) {
+        res.status(400).send({ msg: r.msg });
+        return;
+    }
+
     user.alias = params.alias;
     user.password = params.password;
     user.publicKey = publicKey;
