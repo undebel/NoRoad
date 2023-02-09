@@ -9,8 +9,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 const userRoutes = require("./routes/user");
+const loginRoutes = require("./routes/login");
 
 app.use("/api", userRoutes);
+app.use("/api", loginRoutes);
 
 // All GET requests that we have not handled will return our React app.
 app.get('*', (req, res) => {

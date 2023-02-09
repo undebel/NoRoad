@@ -56,6 +56,11 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
     const idUser = req.params.id;
 
+    if (!idUser) {
+        res.status(400).send({ msg: "Must specify a user identifier" });
+        return;
+    }
+
     try {
         const user = await User.findById(idUser);
 
@@ -108,6 +113,11 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     const idUser = req.params.id;
+
+    if (!idUser) {
+        res.status(400).send({ msg: "Must specify a user identifier" });
+        return;
+    }
 
     try {
         const user = await User.findByIdAndDelete(idUser);

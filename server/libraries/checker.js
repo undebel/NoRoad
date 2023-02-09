@@ -29,4 +29,16 @@ const checkUpdateUser = (body) => {
     return result;
 };
 
-module.exports = { checkCreateUser, checkUpdateUser };
+const checkLogin = (id, password) => {
+    if (!id || id.trim() === "") {
+        return { result: false, msg: "ID cannot be empty" };
+    }
+    else if (!password || !isSHA256(password)) {
+        return { result: false, msg: "Password must be a SHA256 hash" };
+    }
+    else {
+        return { result: true };
+    }
+};
+
+module.exports = { checkCreateUser, checkUpdateUser, checkLogin };
