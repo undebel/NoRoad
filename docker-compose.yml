@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    image: node:19
+    ports:
+      - "1337:3001"
+    links:
+      - db
+    command: sh -c "npm install && cd client && npm install && npm run build && cd .. && npm start"
+    working_dir: /app
+    volumes:
+      - ./:/app
+  db:
+    image: mongo
+    volumes:
+      - ./data/db:/data/db
