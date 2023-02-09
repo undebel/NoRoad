@@ -12,7 +12,7 @@ const createUser = async (req, res) => {
         res.status(400).send({ msg: r.msg });
         return;
     }
-    
+
     const { publicKey, privateKey } = rsa.generateRSAKeys();
 
     user.alias = params.alias;
@@ -97,7 +97,7 @@ const updateUser = async (req, res) => {
     }
 
     try {
-        const user = await User.findByIdAndUpdate(idUser, params);
+        const user = await User.findByIdAndUpdate(idUser, newUser);
 
         if (user) {
             res.status(200).send({ msg: "User successfully updated" });
