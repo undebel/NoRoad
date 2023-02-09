@@ -60,7 +60,7 @@ const getUser = async (req, res) => {
         const user = await User.findById(idUser);
 
         if (user) {
-            res.status(200).send(user);
+            res.status(200).send({ alias: user.alias, publicKey: user.publicKey });
         }
         else {
             res.status(400).send({ msg: "The specified user has not been found" });
