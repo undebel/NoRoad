@@ -12,7 +12,7 @@ services:
     volumes:
       - ./:/app
     environment:
-      - "MONGO_DB=db"
+      - "MONGO_DB=$MONGO_DB"
       - "PORT=$PORT"
   db:
     image: mongo
