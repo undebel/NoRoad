@@ -3,17 +3,15 @@ services:
   app:
     image: node:19
     ports:
-      - "${PORT}:${PORT}"
+      - "${PORT}:1337"
     links:
       - db
-    #command: sh -c "npm install && cd client && npm install && npm run build && cd .. && npm start"
-    command: sh -c "npm install && npm run dev" #dev
+    command: sh -c "npm install && cd client && npm install && npm run build && cd .. && npm start"
     working_dir: /app
     volumes:
       - ./:/app
     environment:
       - "MONGO_DB=$MONGO_DB"
-      - "PORT=$PORT"
   db:
     image: mongo
     volumes:

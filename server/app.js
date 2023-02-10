@@ -6,7 +6,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Make node serve the files of our app in React.
-//app.use(express.static(path.resolve(__dirname, '../client/build')));
+app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 const userRoutes = require("./routes/user");
 const loginRoutes = require("./routes/login");
@@ -16,7 +16,7 @@ app.use("/api", loginRoutes);
 
 // All GET requests that we have not handled will return our React app.
 app.get('*', (req, res) => {
-    //res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
 module.exports = app;
