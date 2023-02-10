@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App {
+  background-image: url("https://nordvpn.com/wp-content/uploads/social-what-is-best-secure-messaging-app@2x.png");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bgForm {
+  background-color: white;
+}

@@ -71,7 +71,7 @@ function RegisterForm(props) {
                 {alert ? <Alert key={alert.variant} variant={alert.variant}>{alert.msg}</Alert> : null}
             </Container>
             <Container className="mt-1 d-flex justify-content-center w-50">
-                <Form onSubmit={handleFormSubmit} className="border border-primary rounded p-5">
+                <Form onSubmit={handleFormSubmit} className="bgForm border border-primary rounded p-5">
                     <h3 className="text-center">Register an account</h3>
                     <Form.Group className="mt-3">
                         <Form.Label>Alias</Form.Label>
