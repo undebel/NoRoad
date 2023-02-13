@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const checker = require("../libraries/checker");
+const rsa = require("../libraries/rsa");
 
 const login = async (req, res) => {
     const { id, password } = req.body;
@@ -14,8 +15,8 @@ const login = async (req, res) => {
     try {
         const user = await User.findById(id);
 
-        if (user && user.password === password) {
-            res.status(200).send({ msg: "You are successfully logged in", alias: user.alias, rooms: user.rooms });
+        if (user && user.password === rsa.toSHA256(password)) {
+            res.status(200).send({ alias: user.alias, rooms: user.rooms });
         }
         else {
             res.status(400).send({ msg: "Invalid ID or password" });

@@ -16,7 +16,7 @@ const createUser = async (req, res) => {
     const { publicKey, privateKey } = rsa.generateRSAKeys();
 
     user.alias = params.alias;
-    user.password = params.password;
+    user.password = rsa.toSHA256(params.password);
     user.publicKey = publicKey;
 
     try {

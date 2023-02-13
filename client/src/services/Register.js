@@ -1,5 +1,4 @@
 import axios from "axios";
-import sha256 from "crypto-js/sha256";
 
 const checkUser = (alias, password) => {
     if (alias.trim() === "") {
@@ -14,7 +13,7 @@ const checkUser = (alias, password) => {
     else if (password.trim().length < 6) {
         return { result: false, msg: "Enter a password of at least 6 characters." };
     }
-    return { result: true, msg: "Account created succesfully." };
+    return { result: true };
 };
 
 const registerUser = async (alias, password) => {
@@ -22,8 +21,8 @@ const registerUser = async (alias, password) => {
 
     if (check.result) {
         const response = await axios.post("/api/user", {
-            alias: alias,
-            password: sha256(password).toString()
+            alias,
+            password
         });
         return await response.data;
     }

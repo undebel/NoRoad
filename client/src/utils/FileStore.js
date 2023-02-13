@@ -1,3 +1,17 @@
+const readFile = (file) => {
+    if (file) {
+        const reader = new FileReader();
+
+        return new Promise((resolve, reject) => {
+            reader.onload = (e) => {
+                resolve(e.target.result);
+            }
+            reader.readAsText(file);
+        });
+    }
+    return {};
+}
+
 const saveFile = (file) => {
     const content = JSON.stringify(file);
     const blob = new Blob([content], { type: "application/json" });
@@ -7,4 +21,4 @@ const saveFile = (file) => {
     link.click();
 };
 
-export { saveFile };
+export { saveFile, readFile };

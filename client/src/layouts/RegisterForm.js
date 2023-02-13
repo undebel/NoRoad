@@ -12,7 +12,7 @@ function RegisterForm(props) {
     const initialAlert = {
         msg: "",
         variant: ""
-    }
+    };
     const [ alert, setAlert ] = useState(initialAlert);
     const [ creating, setCreating ] = useState(false);
 
@@ -38,17 +38,23 @@ function RegisterForm(props) {
 
         setCreating(true);
 
-        const data = await registerUser(alias, password);
-        if (data.msg) {
+        try {
+            const data = await registerUser(alias, password);
+            if (data.msg) {
+                setCreating(false);
+                showAlert({ msg: data.msg, variant: "danger" });
+                return;
+            }
+
+            saveFile(data);
+
             setCreating(false);
-            showAlert({ msg: data.msg, variant: "danger" });
-            return;
+            showAlert({ msg: "User successfully created.", variant: "success" });
         }
-
-        saveFile(data);
-
-        setCreating(false);
-        showAlert({ msg: "User successfully created.", variant: "success" });
+        catch (error) {
+            setCreating(false);
+            showAlert({ msg: "Error creating the account, please check your information and try again.", variant: "danger" });
+        }
     };
 
     return (
