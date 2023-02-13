@@ -102,7 +102,7 @@ function LoginForm(props) {
                     </div>
                     <div className="mt-3 d-flex justify-content-center">
                         <p className="text-center text-muted">
-                            Don't have an account yet? 
+                            Don't have an account yet?{' '}
                             <Link to="/register" className="fw-bold text-body">Register here</Link>
                         </p>
                     </div>

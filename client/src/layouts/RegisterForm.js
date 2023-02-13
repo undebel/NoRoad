@@ -119,7 +119,7 @@ function RegisterForm(props) {
                     </div>
                     <div className="mt-3 d-flex justify-content-center">
                         <p className="text-center text-muted">
-                            Have already an account?
+                            Have already an account?{' '}
                             <Link to="/login" className="fw-bold text-body">Login here</Link>
                         </p>
                     </div>

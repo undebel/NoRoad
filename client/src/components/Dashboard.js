@@ -1,16 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { Button, ListGroup, Container, Row, Col, Form } from 'react-bootstrap';
 import { Navigate } from "react-router-dom";
 import { userContext } from "../contexts/UserContext";
+import Aside from "../layouts/Aside";
 
 function Dashboard(props) {
     const context = useContext(userContext);
 
     if (!context.user) {
-        return <Navigate to="/login"/>
+        return <Navigate to="/login"/>;
     }
 
     return (
-        <h1>Dashboard</h1>
+        <Container fluid className="mt-2">
+            <Row>
+                <Col xs={3}>
+                    <Aside/>
+                </Col>
+                <Col xs={9}>
+                    
+                </Col>
+            </Row>
+        </Container>
     );
 }
 
