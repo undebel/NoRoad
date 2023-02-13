@@ -21,8 +21,8 @@ function App() {
             <Routes>
               <Route index element={<Home/>}/>
               <Route path='register' element={<Register/>}/>
-                <Route path='login' element={<Login/>}/>
-                <Route path='dashboard' element={<Dashboard/>}/>
+              <Route path='login' element={<Login/>}/>
+              <Route path='dashboard' element={<Dashboard/>}/>
               <Route path='*' element={<Navigate replace to="/"/>}/>
             </Routes>
           </Router>

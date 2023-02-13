@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const checkUser = (alias, password) => {
+const checkUser = (alias, password, confirmPassword) => {
     if (alias.trim() === "") {
         return { result: false, msg: "Enter an alias." };
     }
@@ -13,11 +13,14 @@ const checkUser = (alias, password) => {
     else if (password.trim().length < 6) {
         return { result: false, msg: "Enter a password of at least 6 characters." };
     }
+    else if (password !== confirmPassword) {
+        return { result: false, msg: "Passwords do not match." };
+    }
     return { result: true };
 };
 
-const registerUser = async (alias, password) => {
-    const check = checkUser(alias, password);
+const registerUser = async (alias, password, confirmPassword) => {
+    const check = checkUser(alias, password, confirmPassword);
 
     if (check.result) {
         const response = await axios.post("/api/user", {

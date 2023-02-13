@@ -26,10 +26,11 @@ function RegisterForm(props) {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         
-        let { alias, password, agree } = e.target;
+        let { alias, password, confirmPassword, agree } = e.target;
 
         alias = alias.value;
         password = password.value;
+        confirmPassword = confirmPassword.value;
 
         if (!agree.checked) {
             showAlert({ msg: "Please accept the Terms and Conditions before creating your account.", variant: "danger" });
@@ -39,7 +40,7 @@ function RegisterForm(props) {
         setCreating(true);
 
         try {
-            const data = await registerUser(alias, password);
+            const data = await registerUser(alias, password, confirmPassword);
             if (data.msg) {
                 setCreating(false);
                 showAlert({ msg: data.msg, variant: "danger" });
@@ -89,6 +90,10 @@ function RegisterForm(props) {
                         <Form.Text className="text-muted">
                             Your password will be encrypted and stored as a SHA256 hash.
                         </Form.Text>
+                    </Form.Group>
+                    <Form.Group className="mt-2">
+                        <Form.Label>Confirm password</Form.Label>
+                        <Form.Control type="password" name="confirmPassword" placeholder="Confirm your password" />
                     </Form.Group>
                     <Form.Group className="mt-3">
                         <Form.Check type="checkbox" name="agree" label="I agree with the Terms and Conditions and the Privacy Policy." />

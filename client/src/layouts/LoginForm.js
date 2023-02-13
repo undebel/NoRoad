@@ -4,12 +4,13 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { readFile } from "../utils/FileStore";
 import { userContext } from "../contexts/UserContext";
 import { loginUser } from "../services/Login";
 
 function LoginForm(props) {
+    const navigate = useNavigate();
     const context = useContext(userContext);
 
     const initialAlert = {
@@ -56,7 +57,7 @@ function LoginForm(props) {
 
             context.assignUser(data);
 
-            return <Navigate to="/dashboard"/>; // TODO
+            navigate("/dashboard");
         }
         catch (error) {
             setLogging(false);
