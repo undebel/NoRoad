@@ -21,7 +21,7 @@ function Aside(props) {
 
     return (
         <>
-            <Button className="w-100">Create room</Button>
+            <Button className="w-100 mt-2">Create room</Button>
             <hr />
             <ListGroup style={{ minHeight: '60vh', maxHeight: '60vh', overflowY: 'scroll' }}>
                 {users.map((user) => (

@@ -12,7 +12,7 @@ function Dashboard(props) {
     }
 
     return (
-        <Container fluid className="mt-2">
+        <Container fluid>
             <Row>
                 <Col xs={3}>
                     <Aside/>
