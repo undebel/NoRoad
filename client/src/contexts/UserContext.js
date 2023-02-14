@@ -9,7 +9,7 @@ const UserContext = (props) => {
         setUser(null);
     };
 
-    const assignUser = async (user) => {
+    const assignUser = (user) => {
         if (user.id && user.rooms && user.privateKey) {
             setUser(user);
         }
