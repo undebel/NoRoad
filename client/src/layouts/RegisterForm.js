@@ -4,11 +4,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../services/Register";
 import { saveFile } from "../utils/FileStore";
 
 function RegisterForm(props) {
+    const navigate = useNavigate();
     const initialAlert = {
         msg: "",
         variant: ""
@@ -50,7 +51,11 @@ function RegisterForm(props) {
             saveFile(data);
 
             setCreating(false);
-            showAlert({ msg: "User successfully created.", variant: "success" });
+            showAlert({ msg: "User successfully created. Redirecting to login...", variant: "success" });
+
+            setTimeout(() => {
+                navigate("/login");
+            }, 3000);
         }
         catch (error) {
             setCreating(false);

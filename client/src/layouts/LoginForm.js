@@ -53,11 +53,13 @@ function LoginForm(props) {
             }
 
             setLogging(false);
-            showAlert({ msg: "User successfully logged.", variant: "success" });
+            showAlert({ msg: "User successfully logged. Redirecting to dashboard...", variant: "success" });
 
             context.assignUser(data);
 
-            navigate("/dashboard");
+            setTimeout(() => {
+                navigate("/dashboard");
+            }, 3000);
         }
         catch (error) {
             setLogging(false);

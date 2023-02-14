@@ -20,13 +20,13 @@ function Room(props) {
         <Container>
             <Row className="justify-content-center">
                 <Col xs={12}>
-                <h3 className="text-center mt-1">User</h3>
+                <h3 className="text-center mt-1 text-white">User</h3>
                 </Col>
             </Row>
             <hr />
             <Row>
                 <Col xs={12}>
-                    <Card style={{ minHeight: '60vh', maxHeight: '60vh', overflowY: 'scroll' }}>
+                    <Card style={{ minHeight: '65vh', maxHeight: '65vh', overflowY: 'scroll' }}>
                         <ListGroup variant="flush">
                             {messages.map((message, index) => (
                                 <ListGroup.Item key={index}>
@@ -49,16 +49,14 @@ function Room(props) {
             </Row>
             <hr />
             <Row className="justify-content-center mt-3">
-                <Col xs={12}>
-                    <Form>
-                        <Form.Group className="d-flex">
-                            <Form.Control type="text"/>
-                            <Button>Enviar</Button>
-                        </Form.Group>
-                    </Form>
-                </Col>
+                <Form className="mt-3">
+                    <Form.Group className="d-flex">
+                        <Form.Control as="textarea" style={{ height: '10vh', marginRight: '10px' }}/>
+                        <Button>Send</Button>
+                    </Form.Group>
+                </Form>
             </Row>
-            </Container>
+        </Container>
     );
 }
 
