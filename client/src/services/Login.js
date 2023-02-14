@@ -27,9 +27,9 @@ const loginUser = async (file, password) => {
     }
 };
 
-const getUserAlias = async (id) => {
+const getUserInfo = async (id) => {
     let result = await axios.get(`/api/user/${id}`);
-    return result.data.alias;
+    return { alias: result.data.alias, publicKey: result.data.publicKey };
 }
 
 const getRooms = async (allId, myId) => {
@@ -39,7 +39,8 @@ const getRooms = async (allId, myId) => {
     const rooms = await Promise.all(allId.map(async id => {
         let result = await axios.get(`/api/room/${id}`);
         const otherId = myId === result.data.ownerId ? result.data.guestId : result.data.ownerId;
-        result.data = { ...result.data, alias: await getUserAlias(otherId)};
+        const userInfo = await getUserInfo(otherId);
+        result.data = { ...result.data, alias: userInfo.alias, publicKey: userInfo.publicKey };
         return result.data;
     }));
     
