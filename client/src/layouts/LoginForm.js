@@ -7,25 +7,21 @@ import Spinner from "react-bootstrap/Spinner";
 import { Link, useNavigate } from "react-router-dom";
 import { readFile } from "../utils/FileStore";
 import { userContext } from "../contexts/UserContext";
-import { loginUser } from "../services/Login";
+import { loginUser, getRooms } from "../services/Login";
 
 function LoginForm(props) {
     const navigate = useNavigate();
     const context = useContext(userContext);
 
-    const initialAlert = {
-        msg: "",
-        variant: ""
-    };
-    const [ alert, setAlert ] = useState(initialAlert);
+    const [ alert, setAlert ] = useState(null);
     const [ logging, setLogging ] = useState(false);
 
     const showAlert = (a, seconds = 4) => {
         setAlert(a);
         setTimeout(() => {
-            setAlert(initialAlert);
+            setAlert(null);
         }, seconds * 1000);
-    }
+    };
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -44,18 +40,19 @@ function LoginForm(props) {
         setLogging(true);
 
         try {
-            const data = await loginUser(file, password);
+            let data = await loginUser(file, password);
 
             if (data.msg) {
                 setLogging(false);
                 showAlert({ msg: data.msg, variant: "danger" });
                 return;
             }
+            
+            data = { ...data, rooms: await getRooms(data.rooms) }
+            context.assignUser(data);
 
             setLogging(false);
             showAlert({ msg: "User successfully logged. Redirecting to dashboard...", variant: "success" });
-
-            context.assignUser(data);
 
             setTimeout(() => {
                 navigate("/dashboard");
@@ -69,8 +66,8 @@ function LoginForm(props) {
 
     return (
         <>
-            <Container className="mt-1 d-flex justify-content-center w-75">
-                {alert ? <Alert key={alert.variant} variant={alert.variant}>{alert.msg}</Alert> : null}
+            <Container className="mt-1 d-flex justify-content-center w-75 mt-5">
+                {alert && <Alert key={alert.variant} variant={alert.variant}>{alert.msg}</Alert>}
             </Container>
             <Container className="mt-1 d-flex justify-content-center w-50">
                 <Form onSubmit={handleFormSubmit} className="bgForm border border-primary rounded p-5">

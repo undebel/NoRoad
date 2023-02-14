@@ -10,17 +10,13 @@ import { saveFile } from "../utils/FileStore";
 
 function RegisterForm(props) {
     const navigate = useNavigate();
-    const initialAlert = {
-        msg: "",
-        variant: ""
-    };
-    const [ alert, setAlert ] = useState(initialAlert);
+    const [ alert, setAlert ] = useState(null);
     const [ creating, setCreating ] = useState(false);
 
     const showAlert = (a, seconds = 4) => {
         setAlert(a);
         setTimeout(() => {
-            setAlert(initialAlert);
+            setAlert(null);
         }, seconds * 1000);
     }
 
@@ -80,7 +76,7 @@ function RegisterForm(props) {
                 </Alert>
             </Container>
             <Container className="mt-1 d-flex justify-content-center w-75">
-                {alert ? <Alert key={alert.variant} variant={alert.variant}>{alert.msg}</Alert> : null}
+                {alert && <Alert key={alert.variant} variant={alert.variant}>{alert.msg}</Alert>}
             </Container>
             <Container className="mt-1 d-flex justify-content-center w-50">
                 <Form onSubmit={handleFormSubmit} className="bgForm border border-primary rounded p-5">
