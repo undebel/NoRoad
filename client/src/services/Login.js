@@ -32,14 +32,14 @@ const getUserAlias = async (id) => {
     return result.data.alias;
 }
 
-const getRooms = async (allId) => {
+const getRooms = async (allId, myId) => {
     if (allId.length === 0) {
         return [];
     }
-
     const rooms = await Promise.all(allId.map(async id => {
         let result = await axios.get(`/api/room/${id}`);
-        result.data = { ...result.data, alias: await getUserAlias(result.data.guestId)}; // Check my id and show the other one
+        const otherId = myId === result.data.ownerId ? result.data.guestId : result.data.ownerId;
+        result.data = { ...result.data, alias: await getUserAlias(otherId)};
         return result.data;
     }));
     

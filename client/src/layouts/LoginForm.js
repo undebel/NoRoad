@@ -48,7 +48,7 @@ function LoginForm(props) {
                 return;
             }
             
-            data = { ...data, rooms: await getRooms(data.rooms) }
+            data = { ...data, rooms: await getRooms(data.rooms, file.id) }
             context.assignUser(data);
 
             setLogging(false);
