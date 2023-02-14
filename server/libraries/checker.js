@@ -36,4 +36,16 @@ const checkLogin = (id, password) => {
     }
 };
 
-module.exports = { checkCreateUser, checkUpdateUser, checkLogin };
+const checkCreateRoom = (body) => {
+    if (!body.id || body.id.trim() === "") {
+        return { result: false, msg: "ID cannot be empty" };
+    }
+    else if (!body.guestId || body.guestId.trim() === "") {
+        return { result: false, msg: "Guest ID cannot be empty" };
+    }
+    else {
+        return { result: true };
+    }
+};
+
+module.exports = { checkCreateUser, checkUpdateUser, checkLogin, checkCreateRoom };
