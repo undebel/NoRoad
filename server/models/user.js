@@ -14,11 +14,12 @@ const UserSchema = new Schema({
         type: String,
         require: true
     },
-    rooms: {
-        type: Array,
+    rooms: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Room",
         require: true,
         default: []
-    }
+    }]
 });
 
 module.exports = mongoose.model("User", UserSchema);

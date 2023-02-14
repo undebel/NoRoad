@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const checker = require("../libraries/checker");
 const Room = require("../models/room");
+const User = require("../models/user");
 
 const createRoom = async (req, res) => {
     const room = new Room();
@@ -13,14 +14,33 @@ const createRoom = async (req, res) => {
         return;
     }
 
-    room.ownerId = mongoose.Types.ObjectId(params.id);
-    room.guestId = mongoose.Types.ObjectId(params.guestId);
+    try {
+        room.ownerId = mongoose.Types.ObjectId(params.id);
+        room.guestId = mongoose.Types.ObjectId(params.guestId);
+    }
+    catch (error) {
+        res.status(400).send("Guest ID does not exist");
+        return;
+    }
 
     try {
         const roomStore = await room.save();
 
         if (roomStore) {
-            res.status(200).send(roomStore);
+            const users = [
+                { _id: params.id },
+                { _id: params.guestId },
+            ];
+            const updateResult = await User.updateMany(
+                { $or: users.map((u) => ({ _id: u._id })) },
+                { $push: { rooms: roomStore._id } }
+            );
+
+            if (updateResult.modifiedCount === users.length) {
+                res.status(200).send(roomStore);
+            } else {
+                res.status(400).send({ msg: "User rooms have not been updated" });
+            }
         }
         else {
             res.status(400).send({ msg: "Room has not been created" });
