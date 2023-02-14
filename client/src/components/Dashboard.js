@@ -6,11 +6,11 @@ import Aside from "../layouts/Aside";
 import Room from "../layouts/Room";
 
 function Dashboard(props) {
-    // const context = useContext(userContext);
+    const context = useContext(userContext);
 
-    // if (!context.user) {
-    //     return <Navigate to="/login"/>;
-    // }
+    if (!context.user) {
+        return <Navigate to="/login"/>;
+    }
 
     return (
         <Container fluid>

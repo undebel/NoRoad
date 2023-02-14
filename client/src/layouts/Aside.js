@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, ListGroup } from 'react-bootstrap';
-import NewRoom from "./NewRoom";
+import CreateRoom from "./CreateRoom";
 
 function Aside(props) {
     const users = [
@@ -22,14 +22,18 @@ function Aside(props) {
 
     const [ showNewRoom, setShowNewRoom ] = useState(false);
 
-    const createRoom = () => {
+    const showCreateRoom = () => {
         setShowNewRoom(true);
+    };
+
+    const hideNewRoom = () => {
+        setShowNewRoom(false);
     };
 
     return (
         <>
-            {showNewRoom ? <NewRoom/> : null}
-            <Button className="w-100 mt-2" onClick={createRoom}>Create room</Button>
+            {showNewRoom ? <CreateRoom hide={hideNewRoom}/> : null}
+            <Button className="w-100 mt-2" onClick={showCreateRoom}>Create room</Button>
             <hr />
             <ListGroup style={{ minHeight: '65vh', maxHeight: '65vh', overflowY: 'scroll' }}>
                 {users.map((user) => (
@@ -41,7 +45,7 @@ function Aside(props) {
             <hr />
             <Button className="w-100">Dark mode</Button>
             <Button className="w-100 mt-2">Options</Button>
-            <Button className="w-100 mt-2">Logout</Button>
+            <Button className="w-100 mt-2">Log out</Button>
         </>
     );
 }
