@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form, FormControl, Button, Card, Alert } from "react-bootstrap";
+import { userContext } from "../contexts/UserContext";
+import { createRoom } from "../services/Room";
 
 function CreateRoom(props) {
+    const context = useContext(userContext);
     const [ alert, setAlert ] = useState(null);
 
     const showAlert = (a, seconds = 4) => {
@@ -11,12 +14,26 @@ function CreateRoom(props) {
         }, seconds * 1000);
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
-        const id = e.target.id.value;
-
-        if (id.trim() === "") {
-            showAlert({ msg: "Please enter a valid user ID.", variant: "danger" });
+        const { user } = context;
+        const guestId = e.target.id.value.trim();
+      
+        if (!guestId || user.id === guestId) {
+            return showAlert({ msg: "Please enter a valid user ID.", variant: "danger" });
+        }
+      
+        try {
+            const { msg, ...data } = await createRoom(user.id, guestId);
+        
+            if (msg) {
+                return showAlert({ msg, variant: "danger" });
+            }
+        
+            context.assignUser({ ...user, rooms: [...user.rooms, data] });
+            props.hide();
+        } catch (error) {
+            showAlert({ msg: "Error creating room, please check the user ID.", variant: "danger" });
         }
     };
 
