@@ -89,7 +89,7 @@ const deleteRoom = async (req, res) => {
     const idRoom = req.params.id;
 
     try {
-        const room = await User.findByIdAndDelete(idRoom);
+        const room = await Room.findByIdAndDelete(idRoom);
 
         if (room) {
             res.status(200).send({ msg: "Room successfully deleted" });
@@ -103,4 +103,21 @@ const deleteRoom = async (req, res) => {
     }
 }
 
-module.exports = { createRoom, getRooms, getRoom, deleteRoom };
+const getUserRooms = async (req, res) => {
+    const idUser = req.params.id;
+    try {
+        const user = await User.findById(idUser);
+
+        if (user) {
+            res.status(200).send({ rooms: user.rooms });
+        }
+        else {
+            res.status(400).send({ msg: "The specified user has not been found" });
+        }
+    }
+    catch (error) {
+        res.status(500).send(error);
+    }
+}
+
+module.exports = { createRoom, getRooms, getRoom, deleteRoom, getUserRooms };

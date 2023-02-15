@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, ListGroup } from 'react-bootstrap';
 import CreateRoom from "./CreateRoom";
 import { userContext } from "../contexts/UserContext";
+import { fetchRooms } from "../services/Login";
 
 function Aside(props) {
     const context = useContext(userContext);
@@ -14,6 +15,18 @@ function Aside(props) {
     const hideNewRoom = () => {
         setShowNewRoom(false);
     };
+
+    const logout = () => {
+        context.removeUser();
+    };
+
+    useEffect(() => {
+        const intervalId = setInterval(async () => {
+            const rooms = await fetchRooms(context.user.id);
+            context.assignUser({ ...context.user, rooms: rooms});
+        }, 10000);
+        return () => clearInterval(intervalId);
+    }, []);
 
     return (
         <>
@@ -32,7 +45,7 @@ function Aside(props) {
             <hr />
             <Button className="w-100">Dark mode</Button>
             <Button className="w-100 mt-2">Options</Button>
-            <Button className="w-100 mt-2">Log out</Button>
+            <Button className="w-100 mt-2" onClick={logout}>Log out</Button>
         </>
     );
 }

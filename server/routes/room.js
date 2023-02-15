@@ -7,5 +7,6 @@ api.post("/room", RoomController.createRoom);
 api.get("/rooms", RoomController.getRooms);
 api.get("/room/:id", RoomController.getRoom);
 api.delete("/room/:id", RoomController.deleteRoom);
+api.get("/rooms/user/:id", RoomController.getUserRooms);
 
 module.exports = api;

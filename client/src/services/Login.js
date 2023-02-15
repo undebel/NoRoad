@@ -32,8 +32,13 @@ const getUserInfo = async (id) => {
     return { alias: result.data.alias, publicKey: result.data.publicKey };
 }
 
+const fetchRooms = async (id) => {
+    const response = await axios.get(`/api/rooms/user/${id}`);
+    return await getRooms(response.data.rooms, id);
+};
+
 const getRooms = async (allId, myId) => {
-    if (allId.length === 0) {
+    if (allId && allId.length === 0) {
         return [];
     }
     const rooms = await Promise.all(allId.map(async id => {
@@ -47,4 +52,4 @@ const getRooms = async (allId, myId) => {
     return rooms;
 };
 
-export { loginUser, getRooms };
+export { loginUser, getRooms, fetchRooms };
