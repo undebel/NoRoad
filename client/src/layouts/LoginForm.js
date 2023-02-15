@@ -91,7 +91,7 @@ function LoginForm(props) {
                                     role="status"
                                     aria-hidden="true"
                                 />
-                                Checking your credentials...
+                                {' '}Checking your credentials...
                             </Button>
                             : <Button variant="primary" type="submit">
                                 Login

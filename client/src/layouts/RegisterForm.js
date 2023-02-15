@@ -110,7 +110,7 @@ function RegisterForm(props) {
                                     role="status"
                                     aria-hidden="true"
                                 />
-                                Generating RSA keys...
+                                {' '}Generating RSA keys...
                             </Button>
                             : <Button variant="primary" type="submit">
                                 Register
