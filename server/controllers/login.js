@@ -2,6 +2,12 @@ const User = require("../models/user");
 const checker = require("../libraries/checker");
 const rsa = require("../libraries/rsa");
 
+/**
+ * Handle the login request in MongoDB.
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns Send response to the client.
+ */
 const login = async (req, res) => {
     const { id, password } = req.body;
 

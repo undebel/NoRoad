@@ -3,6 +3,12 @@ const checker = require("../libraries/checker");
 const Room = require("../models/room");
 const User = require("../models/user");
 
+/**
+ * Handle to create a new room request in MongoDB.
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns Send response to the client.
+ */
 const createRoom = async (req, res) => {
     const room = new Room();
     const params = req.body;
@@ -51,6 +57,12 @@ const createRoom = async (req, res) => {
     }
 }
 
+/**
+ * Handle to get all rooms request in MongoDB.
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns Send response to the client.
+ */
 const getRooms = async (req, res) => {
     try {
         const rooms = await Room.find();
@@ -67,6 +79,12 @@ const getRooms = async (req, res) => {
     }
 };
 
+/**
+ * Handle to get a room request in MongoDB.
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns Send response to the client.
+ */
 const getRoom = async (req, res) => {
     const idRoom = req.params.id;
 
@@ -84,7 +102,12 @@ const getRoom = async (req, res) => {
         res.status(500).send(error);
     }
 }
-
+/**
+ * Handle to delete room request in MongoDB.
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns Send response to the client.
+ */
 const deleteRoom = async (req, res) => {
     const idRoom = req.params.id;
 
@@ -103,6 +126,12 @@ const deleteRoom = async (req, res) => {
     }
 }
 
+/**
+ * Handle to get all rooms of a user request in MongoDB.
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns Send response to the client.
+ */
 const getUserRooms = async (req, res) => {
     const idUser = req.params.id;
     try {

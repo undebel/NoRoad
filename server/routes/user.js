@@ -3,6 +3,7 @@ const UserController = require("../controllers/user");
 
 const api = express.Router();
 
+// Defines the different API paths to perform user-related operations.
 api.post("/user", UserController.createUser);
 api.get("/users", UserController.getUsers);
 api.get("/user/:id", UserController.getUser);

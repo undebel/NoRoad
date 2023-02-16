@@ -2,6 +2,12 @@ const User = require("../models/user");
 const rsa = require("../libraries/rsa");
 const checker = require("../libraries/checker");
 
+/**
+ * Handle to create a new user request in MongoDB.
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns Send response to the client.
+ */
 const createUser = async (req, res) => {
     const user = new User();
     const params = req.body;
@@ -37,6 +43,12 @@ const createUser = async (req, res) => {
     }
 }
 
+/**
+ * Handle to get all users request in MongoDB.
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns Send response to the client.
+ */
 const getUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -53,6 +65,12 @@ const getUsers = async (req, res) => {
     }
 }
 
+/**
+ * Handle to get a user request in MongoDB.
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns Send response to the client.
+ */
 const getUser = async (req, res) => {
     const idUser = req.params.id;
 
@@ -71,6 +89,12 @@ const getUser = async (req, res) => {
     }
 }
 
+/**
+ * Handle to update a user request in MongoDB.
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns Send response to the client.
+ */
 const updateUser = async (req, res) => {
     const idUser = req.params.id;
     const params = req.body;
@@ -106,6 +130,12 @@ const updateUser = async (req, res) => {
     }
 }
 
+/**
+ * Handle to delete a user request in MongoDB.
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns Send response to the client.
+ */
 const deleteUser = async (req, res) => {
     const idUser = req.params.id;
 

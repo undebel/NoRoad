@@ -1,3 +1,8 @@
+/**
+ * Checks the data to create a new user.
+ * @param {Object} body 
+ * @returns Returns the check and the message as an object.
+ */
 const checkCreateUser = (body) => {
     if (!body.alias || body.alias.trim() === "") {
         return { result: false, msg: "Alias cannot be empty" };
@@ -10,6 +15,11 @@ const checkCreateUser = (body) => {
     }
 };
 
+/**
+ * Checks the data to update an existent user.
+ * @param {Object} body 
+ * @returns Returns the check and the message as an object.
+ */
 const checkUpdateUser = (body) => {
     let result = { result: false };
 
@@ -24,6 +34,12 @@ const checkUpdateUser = (body) => {
     return result;
 };
 
+/**
+ * Checks the data to let login the app.
+ * @param {string} id 
+ * @param {string} password 
+ * @returns Returns the check and the message as an object.
+ */
 const checkLogin = (id, password) => {
     if (!id || id.trim() === "") {
         return { result: false, msg: "ID cannot be empty" };
@@ -36,6 +52,11 @@ const checkLogin = (id, password) => {
     }
 };
 
+/**
+ * Checks the data to create a new room.
+ * @param {Object} body 
+ * @returns Returns the check and the message as an object.
+ */
 const checkCreateRoom = (body) => {
     if (!body.id || body.id.trim() === "") {
         return { result: false, msg: "ID cannot be empty" };

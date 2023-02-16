@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// Defines room schema in the database.
 const RoomSchema = new Schema({
     ownerId: {
         type: mongoose.Schema.Types.ObjectId,

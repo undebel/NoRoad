@@ -3,12 +3,15 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from "react-router-dom";
+import logo from "../images/logo.png";
 
 const NavBar = () => {
     return (
-        <Navbar collapseOnSelect variant="dark" bg="dark" expand="sm">
+        <Navbar collapseOnSelect variant="dark" bg="dark" expand="sm" className="rounded">
           <Container>
-            <Navbar.Brand as={NavLink} to="/">Logo</Navbar.Brand>
+            <Navbar.Brand as={NavLink} to="/">
+              <img src={logo} alt="logo" className="rounded" height={50}></img>
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
                 <Nav>

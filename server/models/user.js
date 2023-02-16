@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// Defines user schema in the database.
 const UserSchema = new Schema({
     alias: {
         type: String,

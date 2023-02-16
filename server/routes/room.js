@@ -3,6 +3,7 @@ const RoomController = require("../controllers/room");
 
 const api = express.Router();
 
+// Defines the different API paths to perform room-related operations.
 api.post("/room", RoomController.createRoom);
 api.get("/rooms", RoomController.getRooms);
 api.get("/room/:id", RoomController.getRoom);

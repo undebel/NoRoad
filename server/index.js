@@ -8,6 +8,7 @@ const urlMongoDB = `mongodb://${hostMongoDB}:27017/noroad`;
 
 mongoose.set("strictQuery", false);
 
+// Initiate the connection to the database
 mongoose.connect(urlMongoDB,
     {
         useNewUrlParser: true,
@@ -18,6 +19,7 @@ mongoose.connect(urlMongoDB,
         if (!err) {
             console.log("Connected to MongoDB");
 
+            // Start listening
             app.listen(port, () => {
                 console.log(`Server listening on ${port}`);
             });

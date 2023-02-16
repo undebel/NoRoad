@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "../layouts/Footer";
 import NavBar from "../layouts/NavBar";
 
 function Home(props) {
@@ -6,6 +7,7 @@ function Home(props) {
         <>
             <NavBar/>
             <h1>Home</h1>
+            <Footer/>
         </>
     );
 }
