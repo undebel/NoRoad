@@ -17,6 +17,7 @@ function App() {
     <div className="App">
       <Container>
         <UserContext>
+          {/* Creating routes in virtual dom */}
           <Router>
             <Routes>
               <Route index element={<Home/>}/>

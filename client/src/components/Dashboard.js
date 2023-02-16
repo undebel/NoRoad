@@ -8,6 +8,7 @@ import Room from "../layouts/Room";
 function Dashboard(props) {
     const context = useContext(userContext);
 
+    // Check if the user is logged
     if (!context.user) {
         return <Navigate to="/login"/>;
     }
