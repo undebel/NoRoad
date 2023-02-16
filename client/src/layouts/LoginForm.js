@@ -31,7 +31,7 @@ function LoginForm(props) {
         file = file.files[0];
         password = password.value;
 
-        file = await readFile(file);
+        file = await readFile(file); // Get the content of the file.
         if (!file) {
             showAlert({ msg: "Please select the noroad.conf file and try again.", variant: "danger" });
         }
@@ -49,13 +49,13 @@ function LoginForm(props) {
             }
             
             data = { ...data, rooms: await getRooms(data.rooms, file.id) }
-            context.assignUser(data);
+            context.assignUser(data); // Asign user to the context.
 
             setLogging(false);
             showAlert({ msg: "User successfully logged. Redirecting to dashboard...", variant: "success" });
 
             setTimeout(() => {
-                navigate("/dashboard");
+                navigate("/dashboard"); // Redirect to dashboard.
             }, 3000);
         }
         catch (error) {

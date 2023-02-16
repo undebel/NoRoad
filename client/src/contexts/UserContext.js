@@ -10,6 +10,7 @@ const UserContext = (props) => {
     };
 
     const assignUser = (user) => {
+        // Check if object contains the id, rooms and private key for prevent errors.
         if (user.id && user.rooms && user.privateKey) {
             setUser(user);
         }

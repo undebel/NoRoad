@@ -24,7 +24,7 @@ function App() {
               <Route path='register' element={<Register/>}/>
               <Route path='login' element={<Login/>}/>
               <Route path='dashboard' element={<Dashboard/>}/>
-              <Route path='*' element={<Navigate replace to="/"/>}/>
+              <Route path='*' element={<Navigate replace to="/"/>}/> {/* If the route doesn't exists redirects to home */}
             </Routes>
           </Router>
         </UserContext>

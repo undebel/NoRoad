@@ -44,13 +44,13 @@ function RegisterForm(props) {
                 return;
             }
 
-            saveFile(data);
+            saveFile(data); // Save file with id and private key.
 
             setCreating(false);
             showAlert({ msg: "User successfully created. Redirecting to login...", variant: "success" });
 
             setTimeout(() => {
-                navigate("/login");
+                navigate("/login"); // Redirect to login.
             }, 3000);
         }
         catch (error) {

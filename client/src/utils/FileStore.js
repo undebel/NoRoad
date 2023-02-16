@@ -1,3 +1,4 @@
+// The function that reads the content of a file.
 const readFile = (file) => {
     if (file) {
         const reader = new FileReader();
@@ -12,6 +13,7 @@ const readFile = (file) => {
     return {};
 }
 
+// The function that save the .conf file in system.
 const saveFile = (file) => {
     const content = JSON.stringify(file);
     const blob = new Blob([content], { type: "application/json" });

@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col, Form, Button, Container, ListGroup, Card } from "react-bootstrap";
 
 function Room(props) {
+    /* NOT IMPLEMENTED YED */
     const messages = [
         {
             from: "user",

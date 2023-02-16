@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// The function that check a new user.
 const checkUser = (alias, password, confirmPassword) => {
     if (alias.trim() === "") {
         return { result: false, msg: "Enter an alias." };
@@ -19,6 +20,7 @@ const checkUser = (alias, password, confirmPassword) => {
     return { result: true };
 };
 
+// The function that sends a http request to create a new user.
 const registerUser = async (alias, password, confirmPassword) => {
     const check = checkUser(alias, password, confirmPassword);
 

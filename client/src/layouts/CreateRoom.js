@@ -30,7 +30,7 @@ function CreateRoom(props) {
                 return showAlert({ msg, variant: "danger" });
             }
         
-            context.assignUser({ ...user, rooms: [...user.rooms, data] });
+            context.assignUser({ ...user, rooms: [...user.rooms, data] }); // Insert the new room in the list
             props.hide();
         } catch (error) {
             showAlert({ msg: "Error creating room, please check the user ID.", variant: "danger" });

@@ -21,6 +21,7 @@ function Aside(props) {
     };
 
     useEffect(() => {
+        // Get the rooms every 10 seconds - Will be replaced by WebSockets
         const intervalId = setInterval(async () => {
             const rooms = await fetchRooms(context.user.id);
             context.assignUser({ ...context.user, rooms: rooms});
