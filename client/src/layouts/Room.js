@@ -52,7 +52,7 @@ function Room(props) {
             <Row className="justify-content-center mt-3">
                 <Form className="mt-3">
                     <Form.Group className="d-flex">
-                        <Form.Control as="textarea" style={{ height: '10vh', marginRight: '10px' }}/>
+                        <Form.Control as="textarea" style={{ minHeight: "10vh", height: "auto", maxHeight: "15vh", marginRight: "10px" }}/>
                         <Button>Send</Button>
                     </Form.Group>
                 </Form>
