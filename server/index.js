@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
+const http = require("http");
 const app = require("./app");
+const SocketManager = require("./socketManager");
 
 const port = 1337;
 
@@ -20,7 +22,14 @@ mongoose.connect(urlMongoDB,
             console.log("Connected to MongoDB");
 
             // Start listening
-            app.listen(port, () => {
+            const server = http.createServer(app);
+
+            global.onlineUsers = new Map();
+
+            const socketManager = new SocketManager(server);
+            socketManager.initialize(global.onlineUsers);
+
+            server.listen(port, () => {
                 console.log(`Server listening on ${port}`);
             });
         }

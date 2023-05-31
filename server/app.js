@@ -1,11 +1,11 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const path = require("path");
 
+app.use(cors());
 // Parse the body of the request in JSON format.
 app.use(express.json());
-// Parse data sent in the body of a request in "application/x-www-form-urlencoded" format.
-app.use(express.urlencoded({ extended: true }));
 
 // Make node serve the files of our app in React.
 app.use(express.static(path.resolve(__dirname, '../client/build')));

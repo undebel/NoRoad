@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button, ListGroup } from 'react-bootstrap';
 import CreateRoom from "./CreateRoom";
 import { userContext } from "../contexts/UserContext";
-import { fetchRooms } from "../services/Login";
+import { getUserInfo } from "../services/Login";
+import axios from "axios";
 
 function Aside(props) {
     const context = useContext(userContext);
@@ -17,17 +18,19 @@ function Aside(props) {
     };
 
     const logout = () => {
+        context.user.socket.disconnect();
         context.removeUser();
     };
-
+    
     useEffect(() => {
-        // Get the rooms every 10 seconds - Will be replaced by WebSockets
-        const intervalId = setInterval(async () => {
-            const rooms = await fetchRooms(context.user.id);
-            context.assignUser({ ...context.user, rooms: rooms});
-        }, 10000);
-        return () => clearInterval(intervalId);
-    }, []);
+        context.user.socket.on("getRoom", async id => {
+            let result = await axios.get(`/api/room/${id}`);
+            const otherId = context.user.id === result.data.ownerId ? result.data.guestId : result.data.ownerId; // Check if the user is the owner of the room
+            const userInfo = await getUserInfo(otherId);
+            let room = { ...result.data, alias: userInfo.alias, publicKey: userInfo.publicKey };
+            context.addRoom(room);
+        });
+    }, [context.user.id]);
 
     return (
         <>

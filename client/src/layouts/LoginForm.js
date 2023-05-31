@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { readFile } from "../utils/FileStore";
 import { userContext } from "../contexts/UserContext";
 import { loginUser, getRooms } from "../services/Login";
+import { io } from "socket.io-client";
 
 function LoginForm(props) {
     const navigate = useNavigate();
@@ -47,8 +48,10 @@ function LoginForm(props) {
                 showAlert({ msg: data.msg, variant: "danger" });
                 return;
             }
-            
-            data = { ...data, rooms: await getRooms(data.rooms, file.id) }
+            const socket = io("http://192.168.176.129:1337");
+            socket.emit("addUser", file.id);
+
+            data = { ...data, rooms: await getRooms(data.rooms, file.id), socket }
             context.assignUser(data); // Asign user to the context.
 
             setLogging(false);
@@ -60,7 +63,7 @@ function LoginForm(props) {
         }
         catch (error) {
             setLogging(false);
-            showAlert({ msg: "Error logging in, please check your file and try again.", variant: "danger" });
+            showAlert({ msg: "Error logging in, please check your file or your password and try again.", variant: "danger" });
         }
     };
 

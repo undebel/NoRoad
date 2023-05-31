@@ -57,4 +57,4 @@ const getRooms = async (allId, myId) => {
     return rooms;
 };
 
-export { loginUser, getRooms, fetchRooms };
+export { loginUser, getRooms, fetchRooms, getUserInfo };

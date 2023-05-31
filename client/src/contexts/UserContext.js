@@ -19,7 +19,14 @@ const UserContext = (props) => {
         }
     };
 
-    const userData = { user, removeUser, assignUser };
+    const addRoom = (room) => {
+        if (user) {
+            user.rooms.push(room);
+            setUser(user);
+        }
+    };
+
+    const userData = { user, removeUser, assignUser, addRoom };
 
     return (
         <userContext.Provider value={userData}>

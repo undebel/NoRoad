@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { Form, FormControl, Button, Card, Alert } from "react-bootstrap";
 import { userContext } from "../contexts/UserContext";
 import { createRoom } from "../services/Room";
+import { getUserInfo } from "../services/Login";
+import axios from "axios";
 
 function CreateRoom(props) {
     const context = useContext(userContext);
@@ -25,14 +27,19 @@ function CreateRoom(props) {
       
         try {
             const { msg, ...data } = await createRoom(user.id, guestId);
-        
+            
             if (msg) {
                 return showAlert({ msg, variant: "danger" });
             }
-        
-            context.assignUser({ ...user, rooms: [...user.rooms, data] }); // Insert the new room in the list
+            let result = await axios.get(`/api/room/${data._id}`);
+            const otherId = user.id === result.data.ownerId ? result.data.guestId : result.data.ownerId; // Check if the user is the owner of the room
+            const userInfo = await getUserInfo(otherId);
+            let room = { ...result.data, alias: userInfo.alias, publicKey: userInfo.publicKey };
+            user.socket.emit("addRoom", { to: guestId, id: data._id });
+            context.addRoom(room);
             props.hide();
         } catch (error) {
+            console.log(error);
             showAlert({ msg: "Error creating room, please check the user ID.", variant: "danger" });
         }
     };
