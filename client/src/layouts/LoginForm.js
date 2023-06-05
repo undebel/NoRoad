@@ -42,7 +42,7 @@ function LoginForm(props) {
 
         try {
             const data = await loginUser(file, password);
-
+            
             if (data.msg) {
                 setLogging(false);
                 showAlert({ msg: data.msg, variant: "danger" });
@@ -72,7 +72,7 @@ function LoginForm(props) {
         }
         catch (error) {
             setLogging(false);
-            showAlert({ msg: "Error logging in, please check your file or your password and try again.", variant: "danger" });
+            showAlert({ msg: "Error logging in, please check the 'noroad.conf' file and your password and try again.", variant: "danger" });
         }
     };
 

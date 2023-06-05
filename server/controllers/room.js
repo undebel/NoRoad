@@ -161,7 +161,7 @@ const addMessage = async (req, res) => {
     const { messageId, isOwner } = req.body;
 
     if (!roomId || !messageId) {
-        return res.status(400).send({ msg: "roomId and messageId are required." });
+        return res.status(200).send({ msg: "roomId and messageId are required." });
     }
 
     try {
@@ -178,7 +178,7 @@ const addMessage = async (req, res) => {
         const updatedRoom = await Room.findByIdAndUpdate(roomId, update, { new: true });
 
         if (!updatedRoom) {
-            res.status(404).send({ msg: "Room not found." });
+            res.status(200).send({ msg: "Room not found." });
         } else {
             res.status(200).send(updatedRoom);
         }

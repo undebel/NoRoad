@@ -10,8 +10,8 @@ import { saveFile } from "../utils/FileStore";
 
 function RegisterForm(props) {
     const navigate = useNavigate();
-    const [ alert, setAlert ] = useState(null);
-    const [ creating, setCreating ] = useState(false);
+    const [alert, setAlert] = useState(null);
+    const [creating, setCreating] = useState(false);
 
     const showAlert = (a, seconds = 4) => {
         setAlert(a);
@@ -22,7 +22,7 @@ function RegisterForm(props) {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        
+
         let { alias, password, confirmPassword, agree } = e.target;
 
         alias = alias.value;
@@ -63,16 +63,16 @@ function RegisterForm(props) {
         <>
             <Container className="mt-4 d-flex justify-content-center">
                 <Alert key="info" variant="info" className="text-center text-justify">
-                    <strong>ATTENTION:</strong> When you register a file called <strong>noroad.conf</strong> will be 
-                    created, this file will contains your identifier and your private key.
-                    <br/>
-                    It is your responsibility to store the file in a safe place, you will need this file to log in 
-                    and decrypt the messages you receive.
-                    <br/>
-                    If you lose it, you will 
-                    lose access to all messages.
-                    <br/>
-                    <strong>NEVER SHARE THE FILE WITH ANYONE.</strong>
+                    <strong>IMPORTANT:</strong> Upon registration, a file named <strong>'noroad.conf'</strong> will be created.
+                    This file contains your unique identifier and private key.
+                    <br />
+                    It's essential to keep this file secure as it's required for logging in and decrypting your messages.
+                    <br />
+                    If this file is lost or modified, you will lose access to all your messages.
+                    <br />
+                    Please remember, it is <strong>YOUR</strong> responsibility to keep this file safe.
+                    <br />
+                    <strong>UNDER NO CIRCUMSTANCES</strong> should you share this file with anyone.
                 </Alert>
             </Container>
             <Container className="mt-1 d-flex justify-content-center w-75">
@@ -102,21 +102,21 @@ function RegisterForm(props) {
                     <div className="mt-4 d-flex justify-content-center">
                         {
                             creating
-                            ? <Button variant="primary" type="submit">
-                                <Spinner
-                                    as="span"
-                                    animation="border"
-                                    size="sm"
-                                    role="status"
-                                    aria-hidden="true"
-                                />
-                                {' '}Generating RSA keys...
-                            </Button>
-                            : <Button variant="primary" type="submit">
-                                Register
-                            </Button>
+                                ? <Button variant="primary" type="submit">
+                                    <Spinner
+                                        as="span"
+                                        animation="border"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                    />
+                                    {' '}Generating RSA keys...
+                                </Button>
+                                : <Button variant="primary" type="submit">
+                                    Register
+                                </Button>
                         }
-                        
+
                     </div>
                     <div className="mt-3 d-flex justify-content-center">
                         <p className="text-center text-muted">

@@ -1,4 +1,6 @@
 import axios from "axios";
+import { Buffer } from "buffer";
+import { SHA256 } from "crypto-js";
 
 // The function that checks if file contains id and the password.
 const checkUser = (file, password) => {
@@ -16,12 +18,14 @@ const loginUser = async (file, password) => {
     const check = checkUser(file, password);
 
     if (check.result) {
+        const privateKey = Buffer.from(file.privateKey, 'base64').toString('utf-8');
         const response = await axios.post("/api/login", {
             id: file.id,
-            password
+            password,
+            privateKeyHash: SHA256(privateKey).toString()
         });
         let data = await response.data;
-        data = { ...data, id: file.id, privateKey: file.privateKey };
+        data = { ...data, id: file.id, privateKey };
         return data;
     }
     else {

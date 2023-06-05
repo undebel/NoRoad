@@ -9,21 +9,22 @@ const checker = require("../libraries/checker");
  * @returns Send response to the client.
  */
 const createUser = async (req, res) => {
-    const user = new User();
     const params = req.body;
-
+    
     const r = checker.checkCreateUser(params);
-
+    
     if (!r.result) {
-        res.status(400).send({ msg: r.msg });
+        res.status(200).send({ msg: r.msg });
         return;
     }
-
+    
     const { publicKey, privateKey } = rsa.generateRSAKeys();
-
+    
+    const user = new User();
     user.alias = params.alias;
     user.password = rsa.toSHA256(params.password);
     user.publicKey = publicKey;
+    user.privateKeyHash = rsa.toSHA256(privateKey);
 
     try {
         const userStore = await user.save();
@@ -35,7 +36,7 @@ const createUser = async (req, res) => {
             });
         }
         else {
-            res.status(400).send({ msg: "User has not been created" });
+            res.status(200).send({ msg: "User has not been created" });
         }
     }
     catch (error) {
@@ -57,7 +58,7 @@ const getUsers = async (req, res) => {
             res.status(200).send(users);
         }
         else {
-            res.status(400).send({ msg: "Error obtaining users" });
+            res.status(200).send({ msg: "Error obtaining users" });
         }
     }
     catch (error) {
@@ -81,7 +82,7 @@ const getUser = async (req, res) => {
             res.status(200).send({ alias: user.alias, publicKey: user.publicKey });
         }
         else {
-            res.status(400).send({ msg: "The specified user has not been found" });
+            res.status(200).send({ msg: "The specified user has not been found" });
         }
     }
     catch (error) {
@@ -102,7 +103,7 @@ const updateUser = async (req, res) => {
     const r = checker.checkUpdateUser(params);
 
     if (!r.result) {
-        res.status(400).send({ msg: "Have not specified any value to update" });
+        res.status(200).send({ msg: "Have not specified any value to update" });
         return;
     }
 
@@ -122,7 +123,7 @@ const updateUser = async (req, res) => {
             res.status(200).send({ msg: "User successfully updated" });
         }
         else {
-            res.status(400).send({ msg: "The specified user could not be updated" });
+            res.status(200).send({ msg: "The specified user could not be updated" });
         }
     }
     catch (error) {
@@ -146,7 +147,7 @@ const deleteUser = async (req, res) => {
             res.status(200).send({ msg: "User successfully deleted" });
         }
         else {
-            res.status(400).send({ msg: "The specified user could not be deleted" });
+            res.status(200).send({ msg: "The specified user could not be deleted" });
         }
     }
     catch (error) {

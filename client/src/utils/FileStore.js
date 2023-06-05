@@ -1,3 +1,5 @@
+import { Buffer } from "buffer";
+
 // The function that reads the content of a file.
 const readFile = (file) => {
     if (file) {
@@ -15,6 +17,7 @@ const readFile = (file) => {
 
 // The function that save the .conf file in system.
 const saveFile = (file) => {
+    file.privateKey = Buffer.from(file.privateKey).toString("base64");
     const content = JSON.stringify(file);
     const blob = new Blob([content], { type: "application/json" });
     const link = document.createElement("a");

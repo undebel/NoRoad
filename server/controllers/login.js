@@ -9,12 +9,12 @@ const rsa = require("../libraries/rsa");
  * @returns Send response to the client.
  */
 const login = async (req, res) => {
-    const { id, password } = req.body;
+    const { id, password, privateKeyHash } = req.body;
 
     const r = checker.checkLogin(id, password);
 
     if (!r.result) {
-        res.status(400).send({ msg: r.msg });
+        res.status(200).send({ msg: r.msg });
         return;
     }
 
@@ -22,10 +22,15 @@ const login = async (req, res) => {
         const user = await User.findById(id);
 
         if (user && user.password === rsa.toSHA256(password)) {
-            res.status(200).send({ alias: user.alias, rooms: user.rooms, publicKey: user.publicKey });
+            if (user.privateKeyHash === privateKeyHash) {
+                res.status(200).send({ alias: user.alias, rooms: user.rooms, publicKey: user.publicKey });
+            }
+            else {
+                res.status(200).send({ msg: "The private key has been altered! You must recover it to read your messages again." });
+            }
         }
         else {
-            res.status(400).send({ msg: "Invalid ID or password" });
+            res.status(200).send({ msg: "Invalid ID or password." });
         }
     }
     catch (error) {

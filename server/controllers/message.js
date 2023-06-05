@@ -10,7 +10,7 @@ const createMessage = async (req, res) => {
     const { isBackup, message } = req.body;
 
     if (!message) {
-        return res.status(400).send({ msg: "Message is required." });
+        return res.status(200).send({ msg: "Message is required." });
     }
 
     try {
@@ -51,7 +51,7 @@ const getMessage = async (req, res) => {
         const message = await Message.findById(messageId);
 
         if (!message) {
-            res.status(404).send({ msg: "Message not found." });
+            res.status(200).send({ msg: "Message not found." });
         } else {
             res.status(200).send(message);
         }
@@ -73,7 +73,7 @@ const deleteMessage = async (req, res) => {
         const message = await Message.findByIdAndDelete(messageId);
 
         if (!message) {
-            res.status(404).send({ msg: "Message not found." });
+            res.status(200).send({ msg: "Message not found." });
         } else {
             res.status(200).send({ msg: "Message successfully deleted." });
         }
