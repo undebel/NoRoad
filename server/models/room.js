@@ -3,24 +3,29 @@ const Schema = mongoose.Schema;
 
 // Defines room schema in the database.
 const RoomSchema = new Schema({
+    date: {
+        type: Date,
+        require: true,
+        default: Date.now
+    },
     ownerId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "User",
         require: true
     },
     guestId : {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "User",
         require: true
     },
     ownerMessages: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "Message",
         require: true,
         default: []
     }],
     guestMessages: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "Message",
         require: true,
         default: []

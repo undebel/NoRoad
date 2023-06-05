@@ -41,18 +41,27 @@ function LoginForm(props) {
         setLogging(true);
 
         try {
-            let data = await loginUser(file, password);
+            const data = await loginUser(file, password);
 
             if (data.msg) {
                 setLogging(false);
                 showAlert({ msg: data.msg, variant: "danger" });
                 return;
             }
-            const socket = io("http://192.168.176.129:1337");
+            
+            const socket = io("http://192.168.176.129:1337", {
+                autoConnect: true,
+                reconnection: true,
+                reconnectionDelay: 1000,
+                reconnectionDelayMax: 5000,
+                reconnectionAttempts: Infinity
+            });
             socket.emit("addUser", file.id);
 
-            data = { ...data, rooms: await getRooms(data.rooms, file.id), socket }
-            context.assignUser(data); // Asign user to the context.
+            context.assignUser({ ...data, socket}); // Asign user to the context.
+
+            const rooms = await getRooms(data.rooms, file.id);
+            context.assignRooms(rooms, data.id, data.privateKey);// Asign rooms to the context.
 
             setLogging(false);
             showAlert({ msg: "User successfully logged. Redirecting to dashboard...", variant: "success" });

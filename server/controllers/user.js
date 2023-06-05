@@ -11,9 +11,9 @@ const checker = require("../libraries/checker");
 const createUser = async (req, res) => {
     const user = new User();
     const params = req.body;
-    
+
     const r = checker.checkCreateUser(params);
-    
+
     if (!r.result) {
         res.status(400).send({ msg: r.msg });
         return;
@@ -112,7 +112,7 @@ const updateUser = async (req, res) => {
         newUser = { alias: r.alias };
     }
     if (r.password) {
-        newUser = { ...newUser, password: r.password };
+        newUser = { ...newUser, password: rsa.toSHA256(r.password) };
     }
 
     try {
@@ -152,6 +152,35 @@ const deleteUser = async (req, res) => {
     catch (error) {
         res.status(500).send(error);
     }
-}
+};
 
-module.exports = { createUser, getUsers, getUser, updateUser, deleteUser };
+const removeRoom = async (req, res) => {
+    const roomId = req.params.id;
+    const { userId, otherId } = req.body;
+
+    const removeRoomFromUser = async (id) => {
+        const user = await User.findById(id);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        
+        const roomIndex = user.rooms.indexOf(roomId);
+        if (roomIndex === -1) {
+            throw new Error('Room not found in user\'s rooms');
+        }
+
+        user.rooms.splice(roomIndex, 1);
+        await user.save();
+        return user;
+    };
+
+    try {
+        await removeRoomFromUser(userId);
+        await removeRoomFromUser(otherId);
+        res.status(200).send({ msg: "Room removed from users successfully!" });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
+
+module.exports = { createUser, getUsers, getUser, updateUser, deleteUser, removeRoom };

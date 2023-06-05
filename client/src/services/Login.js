@@ -32,7 +32,7 @@ const loginUser = async (file, password) => {
 // The function that get alias and public key of a user.
 const getUserInfo = async (id) => {
     let result = await axios.get(`/api/user/${id}`);
-    return { alias: result.data.alias, publicKey: result.data.publicKey };
+    return { userId: id, alias: result.data.alias, publicKey: result.data.publicKey };
 }
 
 // The function that get rooms of a user.
@@ -50,7 +50,7 @@ const getRooms = async (allId, myId) => {
         let result = await axios.get(`/api/room/${id}`);
         const otherId = myId === result.data.ownerId ? result.data.guestId : result.data.ownerId; // Check if the user is the owner of the room
         const userInfo = await getUserInfo(otherId);
-        result.data = { ...result.data, alias: userInfo.alias, publicKey: userInfo.publicKey };
+        result.data = { ...result.data, userId: userInfo.userId, alias: userInfo.alias, publicKey: userInfo.publicKey };
         return result.data;
     }));
     

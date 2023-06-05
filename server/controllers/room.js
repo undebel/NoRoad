@@ -102,6 +102,7 @@ const getRoom = async (req, res) => {
         res.status(500).send(error);
     }
 }
+
 /**
  * Handle to delete room request in MongoDB.
  * @param {Object} req 
@@ -124,7 +125,7 @@ const deleteRoom = async (req, res) => {
     catch (error) {
         res.status(500).send(error);
     }
-}
+};
 
 /**
  * Handle to get all rooms of a user request in MongoDB.
@@ -149,4 +150,41 @@ const getUserRooms = async (req, res) => {
     }
 }
 
-module.exports = { createRoom, getRooms, getRoom, deleteRoom, getUserRooms };
+/**
+ * Handle to add an existing message to a room in MongoDB.
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns Send response to the client.
+ */
+const addMessage = async (req, res) => {
+    const roomId = req.params.id;
+    const { messageId, isOwner } = req.body;
+
+    if (!roomId || !messageId) {
+        return res.status(400).send({ msg: "roomId and messageId are required." });
+    }
+
+    try {
+        const convertedMessageId = mongoose.Types.ObjectId(messageId);
+
+        // Add message to room
+        let update;
+        if (isOwner) {
+            update = { $push: { ownerMessages: convertedMessageId } };
+        } else {
+            update = { $push: { guestMessages: convertedMessageId } };
+        }
+
+        const updatedRoom = await Room.findByIdAndUpdate(roomId, update, { new: true });
+
+        if (!updatedRoom) {
+            res.status(404).send({ msg: "Room not found." });
+        } else {
+            res.status(200).send(updatedRoom);
+        }
+    } catch (error) {
+        res.status(500).send({ msg: "Error adding message to room.", error: error.message });
+    }
+}
+
+module.exports = { createRoom, getRooms, getRoom, deleteRoom, getUserRooms, addMessage };

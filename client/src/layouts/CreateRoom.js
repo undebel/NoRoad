@@ -31,12 +31,11 @@ function CreateRoom(props) {
                 return showAlert({ msg, variant: "danger" });
             }
 
-            const otherId = user.id === data.ownerId ? data.guestId : data.ownerId; // Check if the user is the owner of the room
-            const userInfo = await getUserInfo(otherId);
-            let room = { ...data, alias: userInfo.alias, publicKey: userInfo.publicKey };
+            const userInfo = await getUserInfo(guestId);
+            const newRoom = { ...data, userId: guestId, alias: userInfo.alias, publicKey: userInfo.publicKey };
             user.socket.emit("addRoom", { to: guestId, id: data._id });
             
-            props.addRoom(room);
+            context.addRoom(newRoom);
             props.hide();
         } catch (error) {
             console.log(error);
@@ -45,12 +44,12 @@ function CreateRoom(props) {
     };
 
     return (
-        <Card style={{ zIndex: 1, position: "absolute", top: "25%", left: "50%", transform: "translate(-50%, -50%)" }}>
+        <Card bg={context.style.cardVariant} style={{ zIndex: 1, position: "absolute", top: "25%", left: "50%", transform: "translate(-50%, -50%)" }}>
             <Card.Body>
                 <h3 className="text-center">Create a new room with a user</h3>
                 {alert && <Alert className="text-center" key={alert.variant} variant={alert.variant}>{alert.msg}</Alert>}
                 <Form className="mt-4" onSubmit={handleFormSubmit}>
-                    <FormControl type="text" name="id" placeholder="Enter the user ID" />
+                    <FormControl type="text" name="id" placeholder="Enter the user ID" style={{ backgroundColor: context.style.textAreaBg }} />
                     <div className="d-grid gap-2">
                         <Button type="submit" className="mt-3">Create room</Button>
                         <Button variant="danger" onClick={props.hide}>Close</Button>

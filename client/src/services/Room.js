@@ -9,4 +9,17 @@ const createRoom = async (id, guestId) => {
     return result.data;
 };
 
-export { createRoom };
+const getRoom = async (id) => {
+    const result = await axios.get(`/api/room/${id}`);
+    return result.data;
+};
+
+const removeRoom = async (roomId, userId, otherId) => {
+    const result = await axios.post(`/api/user/room/${roomId}`, {
+        userId,
+        otherId
+    });
+    return result.data;
+}
+
+export { createRoom, getRoom, removeRoom };

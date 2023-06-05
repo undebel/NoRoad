@@ -8,7 +8,9 @@ class SocketManager {
 
     initialize(onlineUsers) {
         this.io = socketIo(this.server, {
-            cors: { origin: "*" }
+            cors: { origin: "*" },
+            pingTimeout: 10000,
+            pingInterval: 5000
         });
 
         this.io.on("connection", (socket) => {
@@ -22,6 +24,20 @@ class SocketManager {
                     socket.to(sendUserSocket).emit("getRoom", data.id);
                 }
             });
+
+            socket.on("addMessage", (data) => {
+                const sendUserSocket = onlineUsers.get(data.to);
+                if (sendUserSocket) {
+                    socket.to(sendUserSocket).emit("getMessage", { roomId: data.roomId, date: data.date, message: data.message });
+                }
+            });
+
+            socket.on("removeRoom", (data) => {
+                const sendUserSocket = onlineUsers.get(data.to);
+                if (sendUserSocket) {
+                    socket.to(sendUserSocket).emit("getRemoveRoom", data.roomId);
+                }
+            })
 
             socket.on("disconnect", () => {
                 for (const [userId, socketId] of onlineUsers) {

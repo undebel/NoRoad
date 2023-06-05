@@ -9,5 +9,6 @@ api.get("/users", UserController.getUsers);
 api.get("/user/:id", UserController.getUser);
 api.put("/user/:id", UserController.updateUser);
 api.delete("/user/:id", UserController.deleteUser);
+api.post("/user/room/:id", UserController.removeRoom);
 
 module.exports = api;

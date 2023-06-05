@@ -21,14 +21,14 @@ mongoose.connect(urlMongoDB,
         if (!err) {
             console.log("Connected to MongoDB");
 
-            // Start listening
             const server = http.createServer(app);
-
+            
             global.onlineUsers = new Map();
-
+            
             const socketManager = new SocketManager(server);
             socketManager.initialize(global.onlineUsers);
-
+            
+            // Start listening
             server.listen(port, () => {
                 console.log(`Server listening on ${port}`);
             });

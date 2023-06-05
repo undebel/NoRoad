@@ -22,7 +22,7 @@ const login = async (req, res) => {
         const user = await User.findById(id);
 
         if (user && user.password === rsa.toSHA256(password)) {
-            res.status(200).send({ alias: user.alias, rooms: user.rooms });
+            res.status(200).send({ alias: user.alias, rooms: user.rooms, publicKey: user.publicKey });
         }
         else {
             res.status(400).send({ msg: "Invalid ID or password" });

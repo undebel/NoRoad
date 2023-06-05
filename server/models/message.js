@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 // Defines message schema in the database.
 const MessageSchema = new Schema({
+    isBackup: {
+        type: Boolean,
+        require: true
+    },
     date: {
         type: Date,
         require: true,

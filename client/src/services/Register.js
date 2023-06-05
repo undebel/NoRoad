@@ -29,11 +29,25 @@ const registerUser = async (alias, password, confirmPassword) => {
             alias,
             password
         });
-        return await response.data;
+        return response.data;
     }
     else {
         return { msg: check.msg };
     }
 };
 
-export { registerUser };
+const updateUserAlias = async (id, alias) => {
+    const response = await axios.put(`/api/user/${id}`, {
+        alias
+    });
+    return response.data;
+};
+
+const updateUserPassword = async (id, password) => {
+    const response = await axios.put(`/api/user/${id}`, {
+        password
+    });
+    return response.data;
+};
+
+export { registerUser, updateUserAlias, updateUserPassword };

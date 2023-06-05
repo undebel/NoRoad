@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import { userContext } from "../contexts/UserContext";
 import Aside from "../layouts/Aside";
 import Room from "../layouts/Room";
+import EmptyRoom from "../layouts/EmptyRoom";
 
 function Dashboard(props) {
     const context = useContext(userContext);
@@ -16,11 +17,16 @@ function Dashboard(props) {
     return (
         <Container fluid>
             <Row>
+                <Col xs={12}>
+                    <h1 className="text-center mt-2" style={{ backgroundColor: "white", borderRadius: "10px" }}>ENTER YOU AD HERE!! Contact us!</h1>
+                </Col>
+            </Row>
+            <Row>
                 <Col xs={3}>
                     <Aside/>
                 </Col>
                 <Col xs={9}>
-                    <Room/>
+                    {context.selectedRoom ? <Room/> : <EmptyRoom/>}
                 </Col>
             </Row>
         </Container>
