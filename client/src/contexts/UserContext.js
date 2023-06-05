@@ -71,15 +71,17 @@ const UserContext = (props) => {
     };
 
     const addMessage = (roomId, message) => {
-        setSelectedRoom(prevSelectedRoom => {
-            if (roomId === prevSelectedRoom._id) {
-                return {
-                    ...prevSelectedRoom,
-                    allMessages: [...prevSelectedRoom.allMessages, message]
-                };
-            }
-            return prevSelectedRoom;
-        });
+        if (selectedRoom) {
+            setSelectedRoom(prevSelectedRoom => {
+                if (roomId === prevSelectedRoom._id) {
+                    return {
+                        ...prevSelectedRoom,
+                        allMessages: [...prevSelectedRoom.allMessages, message]
+                    };
+                }
+                return prevSelectedRoom;
+            });
+        }
 
         setRooms(prevRooms => {
             return prevRooms.map(r => {
