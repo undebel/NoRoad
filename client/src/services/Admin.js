@@ -36,4 +36,4 @@ const deleteMessage = async (id) => {
     return result.data;
 };
 
-export { getAllUsers, getAllRooms, getAllMessages, makeAdmin };
+export { getAllUsers, getAllRooms, getAllMessages, makeAdmin, deleteUser, deleteRoom, deleteMessage };
