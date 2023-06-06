@@ -143,7 +143,7 @@ function Aside(props) {
             </ListGroup>
             <hr />
             <Button className="w-100" onClick={changeStyleColor}>{textMode}</Button>
-            {context.user.admin && <Button className="w-100 mt-2">Admin panel</Button>}
+            {context.user.admin ? <Button className="w-100 mt-2" onClick={showAdminPanelControl}>Admin panel</Button> : null}
             <Button className="w-100 mt-2" onClick={showOptionsPanel}>My account</Button>
             <Button className="w-100 mt-2" onClick={logout}>Log out</Button>
         </>

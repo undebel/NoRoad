@@ -28,7 +28,11 @@ const checkUpdateUser = (body) => {
     }
 
     if (body.password && body.password.trim() !== "") {
-        result = { ...result, result: true, password: body.password};
+        result = { ...result, result: true, password: body.password };
+    }
+
+    if (body.admin) {
+        result = { ...result, result: true, admin: true };
     }
 
     return result;

@@ -23,7 +23,7 @@ const login = async (req, res) => {
 
         if (user && user.password === rsa.toSHA256(password)) {
             if (user.privateKeyHash === privateKeyHash) {
-                res.status(200).send({ alias: user.alias, rooms: user.rooms, publicKey: user.publicKey });
+                res.status(200).send({ alias: user.alias, admin: user.admin, rooms: user.rooms, publicKey: user.publicKey });
             }
             else {
                 res.status(200).send({ msg: "The private key has been altered! You must recover it to read your messages again." });

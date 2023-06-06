@@ -115,6 +115,9 @@ const updateUser = async (req, res) => {
     if (r.password) {
         newUser = { ...newUser, password: rsa.toSHA256(r.password) };
     }
+    if (r.admin) {
+        newUser = { ...newUser, admin: true };
+    }
 
     try {
         const user = await User.findByIdAndUpdate(idUser, newUser);
