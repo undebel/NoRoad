@@ -80,8 +80,8 @@ function AdminPanel(props) {
         if (selectedRoom) {
             await removeRoom(selectedRoom._id, context.selectedRoom.ownerId, context.selectedRoom.guestId);
 
-            context.user.socket.emit("removeRoom", { to: context.selectedRoom.ownerId, roomId });
-            context.user.socket.emit("removeRoom", { to: context.selectedRoom.guestId, roomId });
+            context.user.socket.emit("removeRoom", { to: context.selectedRoom.ownerId, roomId: selectedRoom._id });
+            context.user.socket.emit("removeRoom", { to: context.selectedRoom.guestId, roomId: selectedRoom._id });
         }
     };
 
