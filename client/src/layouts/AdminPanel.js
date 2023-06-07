@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Card, Button, ListGroup, Row, Col } from "react-bootstrap";
 import { userContext } from "../contexts/UserContext";
-import { getAllUsers, getAllRooms, getAllMessages, makeAdmin, deleteUser, deleteMessage } from "../services/Admin";
+import { getAllUsers, getAllRooms, getAllMessages, makeAdmin, deleteUser, deleteMessage, deleteRoom } from "../services/Admin";
 import { removeRoom } from "../services/Room";
 import moment from "moment";
 
@@ -79,6 +79,7 @@ function AdminPanel(props) {
     const deleteSelectedRoom = async () => {
         if (selectedRoom) {
             await removeRoom(selectedRoom._id, context.selectedRoom.ownerId, context.selectedRoom.guestId);
+            await deleteRoom(selectedRoom._id);
 
             context.user.socket.emit("removeRoom", { to: context.selectedRoom.ownerId, roomId: selectedRoom._id });
             context.user.socket.emit("removeRoom", { to: context.selectedRoom.guestId, roomId: selectedRoom._id });
