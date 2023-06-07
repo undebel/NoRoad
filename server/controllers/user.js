@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Room = require("../models/room");
 const rsa = require("../libraries/rsa");
 const checker = require("../libraries/checker");
 
@@ -147,6 +148,9 @@ const deleteUser = async (req, res) => {
         const user = await User.findByIdAndDelete(idUser);
 
         if (user) {
+            await Room.deleteMany({ 
+                $or: [{ ownerId: idUser }, { guestId: idUser }] 
+            });
             res.status(200).send({ msg: "User successfully deleted" });
         }
         else {

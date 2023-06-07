@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Card, Button, ListGroup, Row, Col } from "react-bootstrap";
 import { userContext } from "../contexts/UserContext";
-import { getAllUsers, getAllRooms, getAllMessages, makeAdmin, deleteUser, deleteRoom, deleteMessage } from "../services/Admin";
+import { getAllUsers, getAllRooms, getAllMessages, makeAdmin, deleteUser, deleteMessage } from "../services/Admin";
+import { removeRoom } from "../services/Room";
 import moment from "moment";
 
 function AdminPanel(props) {
@@ -24,7 +25,7 @@ function AdminPanel(props) {
         const totalStats = {
             users: allUsers.length,
             rooms: allRooms.length,
-            messages: allMessages.length
+            messages: allMessages.length / 2
         };
         setStats(totalStats);
 
@@ -48,7 +49,7 @@ function AdminPanel(props) {
         const recentStats = {
             users: recentUsers.length,
             rooms: recentRooms.length,
-            messages: recentMessages.length
+            messages: recentMessages.length / 2
         };
         setLastStats(recentStats);
 
@@ -77,7 +78,10 @@ function AdminPanel(props) {
 
     const deleteSelectedRoom = async () => {
         if (selectedRoom) {
-            await deleteRoom(selectedRoom._id);
+            await removeRoom(selectedRoom._id, context.selectedRoom.ownerId, context.selectedRoom.guestId);
+
+            context.user.socket.emit("removeRoom", { to: context.selectedRoom.ownerId, roomId });
+            context.user.socket.emit("removeRoom", { to: context.selectedRoom.guestId, roomId });
         }
     };
 

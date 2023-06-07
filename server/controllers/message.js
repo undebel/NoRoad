@@ -1,4 +1,5 @@
 const Message = require("../models/message");
+const Room = require("../models/room");
 
 /**
  * Handle to create a new message request in MongoDB.
@@ -75,6 +76,10 @@ const deleteMessage = async (req, res) => {
         if (!message) {
             res.status(200).send({ msg: "Message not found." });
         } else {
+            await Room.updateMany(
+                { $or: [ { ownerMessages: messageId }, { guestMessages: messageId } ] },
+                { $pull: { ownerMessages: messageId, guestMessages: messageId } }
+            );
             res.status(200).send({ msg: "Message successfully deleted." });
         }
     } catch (error) {
