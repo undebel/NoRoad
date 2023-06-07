@@ -23,26 +23,31 @@ function Room(props) {
 
         const encryptedMyMessage = encryptMessage(context.user.publicKey, messageText);
         const encryptedOtherMessage = encryptMessage(context.selectedRoom.publicKey, messageText);
-        const myBackup = await createMessage(true, encryptedMyMessage);
-        const noBackup = await createMessage(false, encryptedOtherMessage);
+        try {
+            const myBackup = await createMessage(true, encryptedMyMessage);
+            const noBackup = await createMessage(false, encryptedOtherMessage);
 
-        await Promise.all([
-            addMessageToRoom(context.selectedRoom._id, myBackup._id, context.selectedRoom.ownerId === context.user.id),
-            addMessageToRoom(context.selectedRoom._id, noBackup._id, context.selectedRoom.ownerId === context.user.id)
-        ]);
+            await Promise.all([
+                addMessageToRoom(context.selectedRoom._id, myBackup._id, context.selectedRoom.ownerId === context.user.id),
+                addMessageToRoom(context.selectedRoom._id, noBackup._id, context.selectedRoom.ownerId === context.user.id)
+            ]);
 
-        const newMessage = { me: true, date: myBackup.date, message: messageText };
+            const newMessage = { me: true, date: myBackup.date, message: messageText };
 
-        context.user.socket.emit("addMessage", { to: context.selectedRoom.userId, roomId: context.selectedRoom._id, date: noBackup.date, message: encryptedOtherMessage });
+            context.user.socket.emit("addMessage", { to: context.selectedRoom.userId, roomId: context.selectedRoom._id, date: noBackup.date, message: encryptedOtherMessage });
 
-        assignMessages(newMessage);
+            assignMessages(newMessage);
+        }
+        catch (error) {
+            
+        }
 
         setMessageText("");
     };
 
     const handleTextareaChange = (e) => {
         let msg = e.target.value;
-        if (msg.length > maxCharsAllowed){
+        if (msg.length > maxCharsAllowed) {
             msg = msg.slice(0, maxCharsAllowed);
         }
         setMessageText(msg);

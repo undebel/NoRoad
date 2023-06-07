@@ -178,7 +178,7 @@ const addMessage = async (req, res) => {
         const updatedRoom = await Room.findByIdAndUpdate(roomId, update, { new: true });
 
         if (!updatedRoom) {
-            res.status(200).send({ msg: "Room not found." });
+            res.status(400).send({ msg: "Room not found." });
         } else {
             res.status(200).send(updatedRoom);
         }
