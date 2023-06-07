@@ -9,7 +9,7 @@ import Options from "./Options";
 import moment from "moment";
 import AdminPanel from "./AdminPanel";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faCircle } from '@fortawesome/free-solid-svg-icons';
 import RemoveRoom from "./RemoveRoom";
 
 function Aside(props) {
@@ -73,6 +73,13 @@ function Aside(props) {
         const id = e.target.id;
         const selectedRoom = context.rooms.find(r => r._id === id);
         if (selectedRoom && context.selectedRoom?._id !== id) {
+            const oldRooms = context.rooms.map((r) => {
+                if (r._id === id && r.unread) {
+                    r.unread = false;
+                }
+                return r;
+            });
+            context.setRooms(oldRooms);
             context.setSelectedRoom(selectedRoom);
             setShowRemoveRoom(false);
         }
@@ -135,7 +142,11 @@ function Aside(props) {
                                     <strong>{room.alias} - {moment(room.date).format("HH:mm DD/MM/YY")}</strong>
                                     <FontAwesomeIcon icon={faTrashAlt} style={{ color: 'red' }} onClick={showRemoveRoomPanel} />
                                 </>)
-                                : `${room.alias} - ${moment(room.date).format("HH:mm DD/MM/YY")}`}
+                                : (<>
+                                    {room.unread ? <FontAwesomeIcon icon={faCircle} style={{ color: 'green' }} /> : null}
+                                    {' '}
+                                    {`${room.alias} - ${moment(room.date).format("HH:mm DD/MM/YY")}`}
+                                </>)}
                         </ListGroup.Item>
 
                     );

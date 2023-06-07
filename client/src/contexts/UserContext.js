@@ -58,6 +58,8 @@ const UserContext = (props) => {
 
             room.allMessages = allMessages;
 
+            room.unread = false;
+
             updatedRooms.push(room);
         }
         // Sort updatedRooms based on the date
@@ -86,6 +88,9 @@ const UserContext = (props) => {
         setRooms(prevRooms => {
             return prevRooms.map(r => {
                 if (r._id === roomId) {
+                    if (r._id !== selectedRoom?._id) {
+                        r.unread = true;
+                    }
                     return {
                         ...r,
                         allMessages: [...r.allMessages, message]
@@ -120,7 +125,7 @@ const UserContext = (props) => {
         }
     };
 
-    const userData = { user, removeUser, assignUser, rooms, assignRooms, addRoom, removeRoom, selectedRoom, setSelectedRoom, addMessage, style, changeStyleColor };
+    const userData = { user, removeUser, assignUser, rooms, setRooms, assignRooms, addRoom, removeRoom, selectedRoom, setSelectedRoom, addMessage, style, changeStyleColor };
 
     return (
         <userContext.Provider value={userData}>

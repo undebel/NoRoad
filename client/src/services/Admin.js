@@ -19,6 +19,7 @@ const makeAdmin = async (id) => {
     const result = await axios.put(`/api/user/${id}`, {
         admin: true
     });
+    return result.data;
 };
 
 const deleteUser = async (id) => {
