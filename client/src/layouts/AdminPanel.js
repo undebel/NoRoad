@@ -111,7 +111,7 @@ function AdminPanel(props) {
                         <h4 className="text-center">Users</h4>
                         <ListGroup style={{ minHeight: '50vh', maxHeight: '50vh', overflowY: 'scroll' }}>
                             {users.map(user => (
-                                <ListGroup.Item action key={user._id} onClick={() => setSelectedUser(user)}>
+                                <ListGroup.Item action variant={context.style.listVariant} key={user._id} onClick={() => setSelectedUser(user)}>
                                     {selectedUser?._id === user._id ?
                                         <strong>{user._id} - {user.alias}{user.admin ? " - Administrator" : ""}</strong>
                                         : `${user._id} - ${user.alias}${user.admin ? " - Administrator" : ""}`}
@@ -130,7 +130,7 @@ function AdminPanel(props) {
                         <h4 className="text-center">Rooms</h4>
                         <ListGroup style={{ minHeight: '50vh', maxHeight: '50vh', overflowY: 'scroll' }}>
                             {rooms.map(room => (
-                                <ListGroup.Item action key={room._id} onClick={() => setSelectedRoom(room)}>
+                                <ListGroup.Item action variant={context.style.listVariant} key={room._id} onClick={() => setSelectedRoom(room)}>
                                     {selectedRoom?._id === room._id ?
                                         <strong>{room._id} - {room.ownerId} & {room.guestId}</strong>
                                         : `${room._id} - ${room.ownerId} & ${room.guestId}`}
@@ -148,7 +148,7 @@ function AdminPanel(props) {
                         <h4 className="text-center">Messages</h4>
                         <ListGroup style={{ minHeight: '50vh', maxHeight: '50vh', overflowY: 'scroll' }}>
                             {messages.map(message => (
-                                <ListGroup.Item action key={message._id} onClick={() => setSelectedMessage(message)}>
+                                <ListGroup.Item action variant={context.style.listVariant} key={message._id} onClick={() => setSelectedMessage(message)}>
                                     {selectedMessage?._id === message._id ?
                                         <strong>{message._id} - {moment(message.date).format("HH:mm DD/MM/YY")}</strong>
                                         : `${message._id} - ${moment(message.date).format("HH:mm DD/MM/YY")}`}
